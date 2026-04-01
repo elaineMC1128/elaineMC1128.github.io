@@ -3,12 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elaine's website</title>
+    <title>Interactive Media Assignment 1</title>
+
+    <!-- Add favicon to my webpage -->
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <!-- I used an external CSS file so that the structure and presentation are separated clearly. This also makes the code easier to edit and maintain.  -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
+
 <body>
-    <h1>Hello World!</h1>
-    <img src="./assets/apple-touch-icon.png" alt="image">
-    <!--this is a comment-->
+    <header>
+        <h1>Interactive Experience Research Project</h1>
+    </header>
+    
+    <main>
+    <!-- I included both a direct link to the Luni website and a homepage screenshot because I wanted users to understand the context before reading the prompt responses. The link supports direct access to the original interactive experience, while the image provides a quick visual reference -->
+    <section class="intro">
+        <div class="intro-text">
+            <a href="https://www.luni.app/" target="_blank">Luni</a>
+            <p>From the list,I selected the fourth link, Luni, as my interactive web research project. Below are my reviews based on my experience interacting with it.</p>
+        </div>
+        
+        <div class="intro-image">
+            <img src="./assets/Luniverse_homepage.png" alt="Luniverse_homepage" width=700>
+        </div>
+        
+    </section>
+
+    <!-- Here is the response area -->
+    <!-- For the main content section of this assignment, I created a collapsible panel to organize my answers. Since the assignment brief provided 13 prompts—a fairly large number—I felt that displaying them as separate paragraphs would look dense and make the text difficult to read. Therefore, I opted for a collapsible panel, which keeps the page compact and easy to navigate. Users can click to expand or collapse the content, which not only keeps the layout clean but also allows the reader to focus on one question at a time. -->
+    <section class="contentContainer">
+        <!-- The title of the content area -->
+        <div class="contentTitle">
+            <h3>
+                Response <br>to the <br>prompts
+            </h3>
+        </div>
+        
+        <!-- Create the response container -->
+        <!-- I use the same `name` attribute to ensure that only one panel can be expanded at a time. This prevents the confusion that would arise if all collapsed panels were expanded without first closing the currently open one. -->
+        <div class="subContainer">
+            <!-- Prompt01 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">01 What was the first thing you paid attention to when interacting with the experience?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The first thing I noticed was its distinctive visual style, which combines a clean, minimal layout with a playful and slightly futuristic aesthetic. At the same time, the floating 3D scenes immediately draw attention, adding depth and interactivity that encourage exploration and make the experience feel dynamic rather than static.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt02 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">02 Spend two minutes with the experience and create a list of each of your discrete actions.</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        During my two-minute interaction, I began on the homepage by moving my cursor around to explore how the interface responded. I hovered over each floating 3D scene to observe their interactive reactions, then clicked on one of them. This triggered a transition that felt like entering or zooming into the scene, revealing a more detailed environment. Within this space, I experimented by clicking on smaller objects, some of which responded interactively. Then I selected the “discover” option to access a content page. I briefly scrolled through the material and slided to the top and click the close button to go back to the previous page. After that, I used the navigation menu in the bottom right corner to return to the homepage. I also discovered that scrolling upward allowed me to move sequentially through different scenes. I repeated a pattern of interacting with elements, entering content pages, briefly browsing, and returning, while gradually exploring each section and testing how different interface elements responded.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt03 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">03 What part of the experience did you spend the most time engaging with?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        Throughout the experience, I spent the most time exploring interactions with small objects in each 3D scene. When I clicked or hovered over them, some elements responded in subtle or unexpected ways. This sparked my curiosity and prompted me to try various interactions within each environment. Compared to simply switching between different areas, these micro-interactions were more engaging and satisfying, which naturally made me want to spend more time exploring each scene.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt04 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">04 What was the most common action in your two minute interaction with the experience?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The most common action was scrolling, as the site relies heavily on scroll-triggered transitions and parallax effects to reveal its content and narrative layers.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt05 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">05 What is your impression of the intended primary goal of the interactive experience?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        My impression is that the primary goal of the interactive experience is to immerse users in the “Luniverse”, encouraging users to explore the space and discover content organically. This immersive approach allows users to engage with the brand’s identity and creative output in a more intuitive and experiential manner.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt06 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">06 How does the interactive experience communicate this primary goal?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The interactive experience communicates this primary goal through a combination of its visual design, interaction mechanics, and transition effects.
+                    </p>
+                    <p>
+                        The dreamlike and slightly futuristic aesthetic, along with the construction of immersive 3D scenes, establishes a strong sense of spatial depth and atmosphere. Smooth transitions, such as zooming into scenes, reinforce the feeling of entering a continuous environment rather than navigating separate pages. In addition, micro-interactions between the cursor and scene elements, as well as interface components, encourage active engagement and exploration, allowing users to experience the “Luniverse” in a more intuitive and immersive way.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt07 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">07 What is your impression of how the experience should be interacted with over time? (For how long and how many different times)</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The experience seems to be designed for short but repeatable interactions. During a single visit, users may spend a few minutes exploring different 3D scenes and interacting with elements. However, because the site contains multiple sections and encourages free exploration, users are likely to return and explore more over time. It does not follow a fixed path, but instead allows users to engage with it in a flexible and exploratory way.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt08 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">08 How does the interactive experience communicate how it should be interacted with over time?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The experience communicates this through its open structure and interaction design. There is no fixed path or clear beginning and end, which suggests that users can explore the site freely at their own pace. The use of multiple 3D scenes, scrolling transitions, and easy navigation between sections encourages users to move in and out of different parts of the experience.
+                    </p>
+                </div>
+            </details>
+            
+            <!-- Prompt09 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">09 What other media forms (digital or otherwise) does the experience reference?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The experience references several media forms, including video games, editorial design, and creative studio websites. The interactive 3D scenes and exploratory navigation resemble game environments, encouraging users to move through different spaces. At the same time, the content pages—especially in sections like “Luni Life”—are presented in a way similar to fashion magazines or editorial photo spreads, with strong visual emphasis and curated imagery. Additionally, the navigation interactions, such as hovering over menu items to reveal images, feel similar to editorial previews or visual indexes. Together, these references create a hybrid experience that combines exploration, visual storytelling, and brand presentation.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt10 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">10 What does this reference/s communicate to you about how you should act when engaging with your research experience?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        These references signal that I should interact with the site as an observer of an aesthetic "world," moving slowly and deliberately to appreciate the visual transitions rather than rushing to find specific data points.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt11 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">11 What does this reference/s communicate to you about how you should feel when engaging with your research experience?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        These references suggest that I should approach the experience with curiosity, exploring it in different ways rather than following a fixed path. It feels as if the “Luniverse” is an unknown digital planet, encouraging me to navigate through it, discover its details, and experiment with its interactions. This creates a sense of playful exploration, where I am not just using a website, but actively exploring a designed world.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt12 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">12 What is the most frustrating part of the interaction to you and what makes that part frustrating?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The most frustrating part of the interaction was navigating back from the content pages. After scrolling through a section, there was no immediately visible way to return, and I only noticed the close button after scrolling back to the top. This created a sense of unclear navigation where it is not always obvious where interactions will lead. As a result, the flow of the experience felt slightly disrupted and less intuitive.
+                    </p>
+                </div>
+            </details>
+
+            <!-- Prompt13 -->
+            <details name="prompts">
+                <summary>
+                    <span class="summary-text">13 What is the most satisfying part of the interaction to you and what makes that part satisfying?</span>
+                </summary>
+                <div class="responseContent">
+                    <p>
+                        The most satisfying part is the perfect synchronization between the mouse movement and the 3D model’s rotation, as the tactile responsiveness creates a sense of direct physical control over a complex digital object.
+                    </p>
+                </div>
+            </details>
+
+        </div>
+    </section>
+
+    <section class="name">
+        <p>Meilin Chen (Elaine)</p>
+        <p>S4151128</p>
+    </section>
+
+    </main>
+    
 </body>
 </html>
