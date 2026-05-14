@@ -1,0 +1,492 @@
+/* 
+I used :root variables to store the main colors and reusable design values for the website, such as background colors and text colors.
+This approach makes the stylesheet easier to maintain because changing a value in one place automatically updates it across the whole interface. It also helps keep the visual style consistent between different components such as the control bar, settings panel, and theme cards.
+I first learned about CSS custom properties in another web design course and then used MDN documentation as additional support.
+*/
+:root {
+  --dark: #070411;
+  --panel: #141018c7;
+  --panel-strong: #0c0a10e0;
+  --text: #ffffff;
+  --muted: #cfc8d6;
+  --purple: #b15ab6;
+  --orange: #f0a84b;
+  --line: rgba(255, 255, 255, 0.18);
+  --radius: 18px;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Courier New", monospace;
+  color: var(--text);
+  background: var(--dark);
+}
+
+/* The background image is applied to the .app container instead of the body because the application needs to dynamically switch between different animated themes using JavaScript. */
+.app {
+  min-height: 100vh;
+  position: relative;
+  background-image: url("assets/theme/chill/bg.gif");
+  background-size: cover;
+  background-position: center;
+}
+
+/* I used a semi-transparent overlay with ::before to darken the background slightly. This improves readability and visual hierarchy by increasing the contrast between the animated background and the interface elements. */
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: #05030c2e;
+  pointer-events: none;
+}
+
+
+/* Title in the top-left corner */
+.site-title {
+  position: fixed;
+  top: 26px;
+  left: 36px;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+}
+
+/* Current time display in the top-center of the screen */
+.clock-display {
+  position: fixed; 
+  top: 50px;
+  left: 50%;
+  /* 
+  I want the clock to be centered horizontally, but it seems like the left side of the clock is at the center, so I asked ChatGPT to help me with the positioning. 
+  And it told me to use transform: translate(-50%) together with left: 50% to perfectly center the clock horizontally
+  */
+  transform: translate(-50%);
+  z-index: 30;
+  color: var(--text);
+  font-size:3rem;
+  letter-spacing: 1px;
+}
+
+/* Fullscreen button in the top-right corner */
+.fullscreen {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+/* =========================
+   Theme Selection Panel
+   ========================= */
+
+.theme-panel {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  bottom: 112px;
+  z-index: 40;
+  height: 210px;
+  padding: 20px 48px;
+
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  gap: 18px;
+
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  /* I asked Gemini how to create a glass blur effect */
+  backdrop-filter: blur(8px); 
+}
+
+.theme-card-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(170px, 1fr)); 
+  /* 
+  4 columns
+  Minimum 170px
+  Distribute evenly across remaining space
+  */
+  gap: 16px;
+}
+
+.theme-card {
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+
+  cursor: pointer;
+}
+
+.theme-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    transparent 20%,
+    rgba(0, 0, 0, 0.72)
+  );
+}
+
+.theme-card.active {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(240, 168, 75, 0.3);
+}
+
+.theme-card h3,
+.theme-card p {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  z-index: 2;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.theme-card h3 {
+  bottom: 42px;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+}
+
+.theme-card p {
+  bottom: 18px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+}
+
+.theme-arrow {
+  width: 40px;
+  height: 60px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.theme-arrow:hover {
+  color: var(--purple);
+}
+
+.icon-btn,
+.play-btn,
+.fullscreen,
+.theme-arrow,
+#close-settings-btn {
+  display: grid;
+  place-items: center;
+}
+
+.icon-btn img,
+.play-btn img,
+.fullscreen img,
+.theme-arrow img,
+#close-settings-btn img {
+  display: block;
+  pointer-events: none;
+}
+
+.theme-card {
+  font-family: inherit;
+}
+
+/* =========================
+   Bottom Control Bar
+   ========================= */
+
+.controlBar {
+  position: fixed;
+  left: 9%;
+  right: 9%;
+  bottom: 20px;
+  z-index: 35;
+  height: 70px;
+  padding: 0 18px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+}
+
+.track-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* The theme button is designed as a circular floating icon because it acts as the main entry point for changing themes. */
+.theme-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #806c92d9;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* Zoom in slightly when the mouse hovers over it */
+.theme-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(255,255,255,0.25);
+}
+
+/* Zoom out slightly when clicked */
+.theme-btn:active {
+  transform: scale(0.96);
+}
+
+.track-text h2 {
+  font-size: 1.05rem;
+  line-height: 1.1;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.track-text p {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.main-controls,
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.right-controls {
+  justify-content: flex-end;
+}
+
+.icon-btn,
+.play-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.play-btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #241057;
+}
+
+/* Volume slider */
+.volume-panel {
+  position: absolute;
+  right: 62px;
+  bottom: 80px;
+  height: 120px;
+  padding: 10px;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+/* I chose a vertical slider because it uses less horizontal space and feels more similar to audio controls used in music software and streaming applications. */
+#volume-slider {
+  height: 100px;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  accent-color: var(--purple);
+}
+
+
+/* =========================
+   Settings Panel
+   ========================= */
+
+.settings-panel {
+  position: fixed;
+  right: 9%;
+  bottom: 100px;
+  z-index: 60;
+  width: 320px;
+  padding: 20px;
+  background: var(--panel-strong);
+  border-radius: 18px;
+}
+
+.settings-panel h4 {
+  font-size: 1rem;
+}
+
+.settings-panel p {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #b7b0aa;
+  line-height: 1;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+#close-settings-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.setting-row {
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.setting-box {
+  margin-top: 18px;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff14;
+  border-radius: 14px;
+}
+
+.hide-input-group {
+  gap: 8px;
+}
+
+.hide-input-group input {
+  width: 70px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff14;
+  color: white;
+  text-align: center;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.hide-input-group input:focus {
+  outline: 1px solid #ffb454;
+}
+
+.hide-input-group strong {
+  color: #ffb454;
+}
+
+/* I asked ChatGPT how to remove the up and down arrow buttons that come by default with the `input type="number"` element. */
+.hide-input-group input::-webkit-outer-spin-button,
+.hide-input-group input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 
+This custom toggle switch was created for the settings panel to provide a cleaner and more modern interaction style compared to default HTML checkboxes.
+I asked ChatGPT to help me create a custom toggle switch using HTML and CSS, and it provided the structure and styling for the .toggle-btn class. The toggle switch consists of a rounded track and a circular thumb that slides left and right to indicate on/off states. The active state changes the background color of the track and moves the thumb to the opposite side.
+*/
+.toggle-btn {
+  width: 70px;
+  min-width: 70px;
+  height: 36px;
+
+  border: none;
+  border-radius: 999px;
+  background: #666;
+
+  padding: 2px; 
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.toggle-btn span {
+  width: 32px; /* 36 - 2*2 = 32 */
+  height: 32px;
+  border-radius: 50%;
+  background: white;
+
+  transform: translateX(0);
+  transition: transform 0.05s ease;
+  flex-shrink: 0;
+}
+
+.toggle-btn.active {
+  background: #ffb454;
+}
+
+.toggle-btn.active span {
+  transform: translateX(34px); /* 70 - 32 - 2*2 = 34 */
+}
+
+/* auto hide UI */
+body.hide-ui .controlBar,
+body.hide-ui .site-title,
+body.hide-ui .fullscreen,
+body.hide-ui .theme-panel {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* universal hidden */
+.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .controlBar {
+    left: 16px;
+    right: 16px;
+    grid-template-columns: 1fr auto;
+    height: auto;
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .right-controls {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+
+  .theme-panel {
+    left: 16px;
+    right: 16px;
+    height: auto;
+  }
+
+  .theme-card-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>lofi.study</title>
+
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="main.js" defer></script>
+</head>
+
+<!--
+Design rationale:
+I chose the “music for relaxation/study” context because I wanted to create a calm and immersive media experience rather than a traditional music player. The project was inspired by websites such as lofi.cafe and lofi.fm, which combine ambient visuals and simple interactions to help users focus while studying or relaxing.
+Instead of using a complex interface with many controls, I decided to keep the layout minimal and centered around mood selection. Each theme combines a different background animation, icon, and music track to create a more cohesive emotional atmosphere. Most interactions are intentionally subtle and low-distraction because the website is designed to stay open in the background while users study. I also used pixel-art inspired visuals and retro typography to match the nostalgic aesthetic commonly associated with lo-fi music culture.
+Some layout and interaction problems were solved with the help of ChatGPT and Gemini, especially fullscreen functionality, panel toggling logic, and dynamic theme switching.
+-->
+
+<!-- All icons are from <a href="https://icons8.com/">Icon8</a> and all gif images are from <a href="https://au.pinterest.com/">Pinterest</a> -->
+<body>
+  <!--  -->
+  <main class="app" id="app">
+    <!-- 
+    Direction: left - right, top - bottom; 
+    Assets order: title - clock - fullscreen - theme panel - theme information area - control area - shuffle/volume/settings - volume panel - settings panel
+    -->
+
+    <!-- Title in the top-left corner -->
+    <header class="site-title">
+      <h1>lofi.study</h1>
+    </header>
+
+    <!-- Current time display, controlled by settings -->
+    <!-- 
+    Due to my purpose of creating a immersive / low distraction interface, so I wanted to try my best to minimize distractions.
+    So I asked ChatGPT how to make the hidden panels, and it gave me a solution using the "hidden" class to control the visibility of the panel display. The hidden panel will only appear when the user clicks the corresponding button.
+    -->
+    <div id="clock-display" class="clock-display hidden"></div>
+
+    <!-- Fullscreen button -->
+    <button id="fullscreen" class="fullscreen">
+      <img src="assets/icon/full_screen.png" alt="fullscreen-btn" width="25"/>
+    </button>
+
+    <!-- Theme Selection Panel: appears when clicking the circular button in the bottom-left corner -->
+    <section id="theme-panel" class="theme-panel hidden">
+      <button id="theme-prev-btn" class="theme-arrow">
+        <img src="assets/icon/back.png" alt="back-btn" width="25"/>
+      </button>
+
+      <!-- I wanted to create four themed cards with a visual effect similar to a carousel. So I asked ChatGPT how to do it. -->
+      <div class="theme-card-list" id="theme-card-list">
+        <!--use JS to generate four theme cards -->
+      </div>
+
+      <button id="theme-next-btn" class="theme-arrow">
+        <img src="assets/icon/forward.png" alt="forward-btn" width="25"/>
+      </button>
+    </section>
+
+    <!-- Bottom Control Bar -->
+    <section class="controlBar">
+
+      <!-- Theme button + current track information -->
+      <div class="track-area">
+        <button id="theme-btn" class="theme-btn" aria-label="Choose theme">
+          <img id="theme-icon" src="assets/theme/chill/icon.png" alt="music-btn" width="25"/>
+        </button>
+
+        <div class="track-text">
+          <h2 id="track-title">Fireside Chat</h2>
+          <p id="track-artist">Yunior Arronte</p>
+        </div>
+      </div>
+
+      <!-- Previous theme / Play/Pause / Next theme -->
+      <div class="main-controls">
+        <button id="prev-btn" class="icon-btn">
+          <img src="assets/icon/rewind.png" alt="rewind-btn" width="25"/>
+        </button>
+
+        <button id="play-pause-btn" class="play-btn">
+            <img id="play-pause-img" src="assets/icon/play.png" alt="play-btn" width="25"/>
+        </button>
+
+        <button id="next-btn" class="icon-btn">
+            <img src="assets/icon/next.png" alt="next-btn" width="25"/>
+        </button>
+      </div>
+
+      <!-- Right side: shuffle / volume / settings -->
+      <div class="right-controls">
+        <button id="shuffle-btn" class="icon-btn">
+          <img src="assets/icon/shuffle.png" alt="shuffle-btn" width="25"/>
+        </button>
+
+        <button id="volume-btn" class="icon-btn">
+          <img id="volume-icon" src="assets/icon/audio.png" alt="audio-btn" width="25"/>
+        </button>
+
+        <button id="settings-btn" class="icon-btn">
+          <img src="assets/icon/settings.png" alt="settings-btn" width="22"/>
+        </button>
+      </div>
+
+      <!-- Volume slider -->
+      <div id="volume-panel" class="volume-panel hidden">
+        <!-- I asked Gemini for help with the volume slider, and it taught me to use a range input and give me a sample structure -->
+        <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.7" />
+      </div>
+    </section>
+
+    <!-- Settings Panel -->
+    <section id="settings-panel" class="settings-panel hidden">
+      <div class="settings-header">
+        <h3>Settings</h3>
+        <button id="close-settings-btn">
+          <img src="assets/icon/close.png" alt="close-icon" width="30"/> 
+        </button>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <h4>Hide Elements</h4>
+          <p>Hide the interface after a period of inactivity.</p>
+        </div>
+
+        <button id="hide-toggle" class="toggle-btn active">
+          <span></span>
+        </button>
+      </div>
+
+      <div class="setting-box">
+        <span>Hide After</span>
+        <div class="hide-input-group">
+          <input id="hide-seconds-input" type="number" min="5" max="300" value="30" />
+        <strong>sec</strong>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <h4>Show Clock</h4>
+        </div>
+
+        <button id="clock-toggle" class="toggle-btn">
+          <span></span>
+        </button>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <h4>Keyboard Shortcuts</h4>
+          <p>Use [SPACE] to pause and [M] to mute.</p>
+        </div>
+
+        <button id="shortcut-toggle" class="toggle-btn active">
+          <span></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- audio -->
+    <audio id="audio-player"></audio>
+
+  </main>
+</body>
+</html>
